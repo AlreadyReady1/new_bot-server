@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/new_bot-server/VKInfo.iml" filepath="$PROJECT_DIR$/new_bot-server/VKInfo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/new_bot-server/client/client.iml" filepath="$PROJECT_DIR$/new_bot-server/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/new_bot-server.iml" filepath="$PROJECT_DIR$/.idea/new_bot-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/new_bot-server/server/server.iml" filepath="$PROJECT_DIR$/new_bot-server/server/server.iml" />
+    </modules>
+  </component>
+</project>
