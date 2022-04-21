@@ -14,12 +14,15 @@ public class GroupResourceImpl implements GroupResource {
 
     @Override
     public ResponseEntity<GroupHuntResult> hunt(String groupId) {
+
         log.info("Checking group with id {} by destructive comments", groupId);
         if ("toportg".equals(groupId)) {
             return ResponseEntity.ok(GroupHuntResult.builder()
                     .groupName("ТОПОР")
                     .groupId(groupId)
+                    .totalPosts(new int[]{155166,100})
                     .destructPosts(new int[]{56,10})
+
                     .postCount(100)
                     .destructComments(
                             List.of(

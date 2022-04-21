@@ -2,25 +2,55 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="450.0" minWidth="600.0" prefHeight="570.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hunter.destruct.client.controller.MainController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hunter.destruct.client.controller.MainController">
    <children>
-      <SplitPane dividerPositions="0.16515837104072398" orientation="VERTICAL" prefHeight="559.0" prefWidth="720.0">
+      <SplitPane dividerPositions="0.16515837104072398" orientation="VERTICAL" prefHeight="928.0" prefWidth="1230.0">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="115.0" prefWidth="892.0">
                <children>
-                  <Button fx:id="groupHunt" layoutX="287.0" layoutY="14.0" mnemonicParsing="false" text="Сканирование" />
-                  <TextField fx:id="groupIdEnter" layoutX="97.0" layoutY="14.0" promptText="ID сообщества" />
-                  <Button fx:id="getDetails" layoutX="414.0" layoutY="14.0" mnemonicParsing="false" text="Вывод текстов" />
-                  <Label layoutX="14.0" layoutY="18.0" prefHeight="17.0" prefWidth="85.0" text="https://vk.com/" />
-                  <Button fx:id="getDetails1" layoutX="531.0" layoutY="14.0" mnemonicParsing="false" text="Вывод статистических данных" />
-                  <Button fx:id="getDetails2" layoutX="531.0" layoutY="48.0" mnemonicParsing="false" text="Выбор временного интервала" />
+                  <Button fx:id="groupHunt" layoutX="375.0" layoutY="23.0" mnemonicParsing="false" text="Сканирование">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <TextField fx:id="groupIdEnter" layoutX="100.0" layoutY="23.0" promptText="ID сообщества" />
+                  <Button fx:id="getDetails" layoutX="521.0" layoutY="23.0" mnemonicParsing="false" text="Вывод текстов">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <Label layoutX="14.0" layoutY="27.0" prefHeight="17.0" prefWidth="85.0" text="https://vk.com/" />
+                  <Button fx:id="getGraphic" layoutX="716.0" layoutY="23.0" mnemonicParsing="false" text="Вывод статистических данных">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></Button>
+                  <SplitMenuButton layoutX="960.0" layoutY="23.0" mnemonicParsing="false" text="Выбор временного интервала">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Январь" />
+                      <MenuItem mnemonicParsing="false" text="Февраль" />
+                        <MenuItem mnemonicParsing="false" text="Март" />
+                        <MenuItem mnemonicParsing="false" text="Апрель" />
+                        <MenuItem mnemonicParsing="false" text="Май" />
+                        <MenuItem mnemonicParsing="false" text="Июнь" />
+                        <MenuItem mnemonicParsing="false" text="Июль" />
+                        <MenuItem mnemonicParsing="false" text="Август" />
+                        <MenuItem mnemonicParsing="false" text="Сентябрь" />
+                        <MenuItem mnemonicParsing="false" text="Октябрь" />
+                        <MenuItem mnemonicParsing="false" text="Ноябрь" />
+                        <MenuItem mnemonicParsing="false" text="Декабрь" />
+                    </items>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </SplitMenuButton>
                </children>
                <effect>
                   <Lighting bumpInput="$null">
@@ -30,9 +60,12 @@
                   </Lighting>
                </effect>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="366.0" prefWidth="750.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="592.0" prefWidth="886.0">
                <children>
-                  <TextArea fx:id="commentsArea" blendMode="MULTIPLY" cache="true" layoutY="56.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="406.0" prefWidth="711.0" promptText="Выявленные деструктивные комментарии" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="56.0" />
+                  <TextArea fx:id="commentsArea" blendMode="MULTIPLY" cache="true" layoutX="22.0" layoutY="56.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" prefHeight="659.0" prefWidth="1111.0" promptText="Выявленные деструктивные комментарии" AnchorPane.bottomAnchor="55.0" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="56.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font></TextArea>
                </children>
             </AnchorPane>
         </items>

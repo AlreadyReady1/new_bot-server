@@ -1,25 +1,25 @@
 package hunter.destruct.client.controller;
 
+import hunter.destruct.client.controller.diagrams.BarChart;
+import hunter.destruct.client.controller.diagrams.LineChart;
+import hunter.destruct.client.controller.diagrams.PieChart;
 import hunter.destruct.client.dto.GroupHuntResult;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.StackPane;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import javax.swing.text.html.ImageView;
 import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
 public class MainController {
+
 
     @FXML
     protected Button groupHunt;
@@ -29,6 +29,8 @@ public class MainController {
     protected TextArea commentsArea;
     @FXML
     protected Button getDetails;
+    @FXML
+    public Button getGraphic;
 
     private final RestTemplate rest = new RestTemplate();
 
@@ -42,11 +44,14 @@ public class MainController {
                 var resultEntity = rest.exchange("http://localhost:8080/destruct-hunter/api/v1/hunt/group/" + id, HttpMethod.GET, null, GroupHuntResult.class);
 
                 GroupHuntResult result = resultEntity.getBody();
+
+                int allCommentsCount =  Arrays.stream(result.getTotalPosts()).sum();        //
+
                 int destroyCommentsCount = Arrays.stream(result.getDestructPosts()).sum();
-                String stringResult =
-                        destroyCommentsCount < result.getPostCount() - destroyCommentsCount ?
-                                String.format("Сообщество \"%s\" не является деструктивным." +"\n"+" Процент деструктивных комментариев (постов): %d", result.getGroupName(), destroyCommentsCount / result.getPostCount() * 100) :
-                                String.format("Сообщество \"%s\"  потенциально деструктивно." +"\n"+"Процент деструктивных комментариев (постов): %d", result.getGroupName(), destroyCommentsCount * 100 / result.getPostCount());
+                String stringResult = destroyCommentsCount < result.getPostCount() - destroyCommentsCount ?
+
+                                String.format("Сообщество \"%s\" не является деструктивным."+ "\n"+ "Общее количество комментариев (постов): %d" +"\n"+" Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount / result.getPostCount() * 100) :
+                                String.format("Сообщество \"%s\"  потенциально деструктивно."+ "\n"+ "Общее колиество комментариев (постов): %d"  +"\n"+"Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
 
                 commentsArea.setText(stringResult);
             } catch (HttpClientErrorException exception) {
@@ -65,11 +70,12 @@ public class MainController {
             commentsArea.setText(destructList.toString());
         });
 
-
-//        Diagrams.callHorisontalBarChart();
-        Diagrams.callVerticalBarChart();
-        Diagrams.callLineBarChart();
-        Diagrams.callPieChart();
+        getGraphic.setOnAction(event -> {
+            BarChart.callVerticalBarChart();
+            BarChart.callHorizontalBarChart();
+            LineChart.callLineChart();
+            PieChart.callPieChart();
+        });
 
         log.info("Main scene successfully initialize.");
     }

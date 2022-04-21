@@ -13,6 +13,7 @@ public class GroupHuntResult {
 
     private String groupName;
     private String groupId;
+    private int[] totalPosts;
     private int[] destructPosts;
     private int postCount;
     private List<String> destructComments;
