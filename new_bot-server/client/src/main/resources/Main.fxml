@@ -32,25 +32,27 @@
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font></Button>
-                  <SplitMenuButton layoutX="960.0" layoutY="23.0" mnemonicParsing="false" text="Выбор временного интервала">
+
+                  <SplitMenuButton fx:id="choseMonth" layoutX="960.0" layoutY="23.0" mnemonicParsing="false" text="Выбор месяца">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Январь" />
-                      <MenuItem mnemonicParsing="false" text="Февраль" />
-                        <MenuItem mnemonicParsing="false" text="Март" />
-                        <MenuItem mnemonicParsing="false" text="Апрель" />
-                        <MenuItem mnemonicParsing="false" text="Май" />
-                        <MenuItem mnemonicParsing="false" text="Июнь" />
-                        <MenuItem mnemonicParsing="false" text="Июль" />
-                        <MenuItem mnemonicParsing="false" text="Август" />
-                        <MenuItem mnemonicParsing="false" text="Сентябрь" />
-                        <MenuItem mnemonicParsing="false" text="Октябрь" />
-                        <MenuItem mnemonicParsing="false" text="Ноябрь" />
-                        <MenuItem mnemonicParsing="false" text="Декабрь" />
+                      <MenuItem fx:id="Jan"  mnemonicParsing="false" text="Январь" />
+                      <MenuItem fx:id="Feb" mnemonicParsing="false" text="Февраль" />
+                        <MenuItem fx:id="Mar" mnemonicParsing="false" text="Март" />
+                        <MenuItem fx:id="Apr" mnemonicParsing="false" text="Апрель" />
+                        <MenuItem fx:id="May" mnemonicParsing="false" text="Май" />
+                        <MenuItem fx:id="Jun" mnemonicParsing="false" text="Июнь" />
+                        <MenuItem fx:id="Jul" mnemonicParsing="false" text="Июль" />
+                        <MenuItem fx:id="Aug" mnemonicParsing="false" text="Август" />
+                        <MenuItem fx:id="Sep" mnemonicParsing="false" text="Сентябрь" />
+                        <MenuItem fx:id="Oct" mnemonicParsing="false" text="Октябрь" />
+                        <MenuItem fx:id="Nov" mnemonicParsing="false" text="Ноябрь" />
+                        <MenuItem fx:id="Dec" mnemonicParsing="false" text="Декабрь" />
                     </items>
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </SplitMenuButton>
+
                </children>
                <effect>
                   <Lighting bumpInput="$null">

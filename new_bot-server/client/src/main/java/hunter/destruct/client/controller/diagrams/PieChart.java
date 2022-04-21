@@ -16,14 +16,22 @@ import java.beans.EventHandler;
 
 
 public class PieChart {
+    static String str1 = "Деструктивные сообщения";
+    static String str2 = "Нейтральные сообщения";
+    static String str3 = "Общее количество сообщений";
+    static double destructMessageCount;
+    static double neutralMessageCount;
+    static double allMessageCount;
 
-
-    public static void callPieChart(){
+    public static void callPieChart( double firstValue, double secondValue, double thirdValue){
         StackPane root = new StackPane();
+
+
+
         ObservableList<javafx.scene.chart.PieChart.Data> valueList = FXCollections.observableArrayList(
-                new javafx.scene.chart.PieChart.Data("Деструктивные сообщения",4.451),
-                new javafx.scene.chart.PieChart.Data("Нейтральные сообщения", 3.901),
-                new javafx.scene.chart.PieChart.Data("Общее количество сообщений", 8.352));
+                new javafx.scene.chart.PieChart.Data("Деструктивные сообщения",firstValue),
+                new javafx.scene.chart.PieChart.Data("Нейтральные сообщения", secondValue),
+                new javafx.scene.chart.PieChart.Data("Общее количество сообщений", thirdValue));
 
         javafx.scene.chart.PieChart pieChart = new javafx.scene.chart.PieChart(valueList);
         pieChart.setTitle("Статистика за март");
@@ -53,6 +61,8 @@ public class PieChart {
 //                }
 //            });
 //        }
+
+
         pieChart.setLegendSide(Side.LEFT);
         pieChart.setStartAngle(30);
         Scene scene = new Scene(root, 1000, 900);

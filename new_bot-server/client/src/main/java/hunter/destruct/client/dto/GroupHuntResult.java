@@ -18,4 +18,5 @@ public class GroupHuntResult {
     private int postCount;
     private List<String> destructComments;
 
+
 }

@@ -5,9 +5,8 @@ import hunter.destruct.client.controller.diagrams.LineChart;
 import hunter.destruct.client.controller.diagrams.PieChart;
 import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.SplitMenuButton;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -31,6 +30,10 @@ public class MainController {
     protected Button getDetails;
     @FXML
     public Button getGraphic;
+    @FXML
+    SplitMenuButton choseMonth;
+    @FXML
+    MenuItem Jan;
 
     private final RestTemplate rest = new RestTemplate();
 
@@ -74,7 +77,13 @@ public class MainController {
             BarChart.callVerticalBarChart();
             BarChart.callHorizontalBarChart();
             LineChart.callLineChart();
-            PieChart.callPieChart();
+        });
+
+//        choseMonth.setOnAction(event ->{
+//            PieChart.callPieChart();
+//        });
+        Jan.setOnAction(event ->{
+            SplitMenu.callJan();        //добавить остальные кнопки
         });
 
         log.info("Main scene successfully initialize.");
