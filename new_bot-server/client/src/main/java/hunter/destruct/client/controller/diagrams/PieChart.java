@@ -2,39 +2,49 @@ package hunter.destruct.client.controller.diagrams;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.scene.paint.Color;
-
-import java.beans.EventHandler;
 
 
 public class PieChart {
     static String str1 = "Деструктивные сообщения";
     static String str2 = "Нейтральные сообщения";
     static String str3 = "Общее количество сообщений";
-    static double destructMessageCount;
-    static double neutralMessageCount;
-    static double allMessageCount;
 
-    public static void callPieChart( double firstValue, double secondValue, double thirdValue){
+
+//    double govermentDestructMessage, double religionDestructMessage, double drugsDestructMessage, double numberOfNeutralMessage
+    public static void callPieChart( ){
+
+        double max = 10;
+        double min = 1;
+        double randGov = ((Math.random() * (max - min)) + min)*0.24;
+        double randDrug = ((Math.random() * (max - min)) + min)*0.12;
+        double randRelig = ((Math.random() * (max - min)) + min)*0.2;
+        double randNetral = ((Math.random() * (max - min)) + min)*0.44;
+
+        double allMessage = randDrug+randGov+randRelig+randNetral;
+
+
+
+
+//        double numberOfAllMessage = govermentDestructMessage + religionDestructMessage + drugsDestructMessage + numberOfNeutralMessage;
+
         StackPane root = new StackPane();
 
 
 
         ObservableList<javafx.scene.chart.PieChart.Data> valueList = FXCollections.observableArrayList(
-                new javafx.scene.chart.PieChart.Data("Деструктивные сообщения",firstValue),
-                new javafx.scene.chart.PieChart.Data("Нейтральные сообщения", secondValue),
-                new javafx.scene.chart.PieChart.Data("Общее количество сообщений", thirdValue));
+                new javafx.scene.chart.PieChart.Data("Подрыв суверенитета государства и политической стабильности",randGov),
+                new javafx.scene.chart.PieChart.Data("Разжигание этнической и религиозной ненависти",randRelig),
+                new javafx.scene.chart.PieChart.Data("Пропаганда наркотиков",randDrug),
+//                new javafx.scene.chart.PieChart.Data("Деструктивные сообщения",numberOfDestructMessage),
+//                new javafx.scene.chart.PieChart.Data("Общее количество сообщений", numberOfAllMessage),
+                new javafx.scene.chart.PieChart.Data("Нейтральные сообщения", randNetral));
 
         javafx.scene.chart.PieChart pieChart = new javafx.scene.chart.PieChart(valueList);
-        pieChart.setTitle("Статистика за март");
+        pieChart.setTitle("Статистика за ");
 
         pieChart.getData().forEach(data -> {
 //            String percentage = String.format("..2f%%", (data.getPieValue()));
@@ -63,12 +73,16 @@ public class PieChart {
 //        }
 
 
-        pieChart.setLegendSide(Side.LEFT);
+//        pieChart.setLegendSide(Side.LEFT);
         pieChart.setStartAngle(30);
-        Scene scene = new Scene(root, 1000, 900);
+        Scene scene = new Scene(root, 500, 400);
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Destruct_Hunter");
         primaryStage.setScene(scene);
+        primaryStage.setX(1250);
+        primaryStage.setY(100);
+        primaryStage.toFront();
+
         primaryStage.show();
 
 

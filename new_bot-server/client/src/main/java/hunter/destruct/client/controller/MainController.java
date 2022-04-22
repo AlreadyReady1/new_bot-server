@@ -2,11 +2,9 @@ package hunter.destruct.client.controller;
 
 import hunter.destruct.client.controller.diagrams.BarChart;
 import hunter.destruct.client.controller.diagrams.LineChart;
-import hunter.destruct.client.controller.diagrams.PieChart;
 import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.SplitMenuButton;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -34,6 +32,31 @@ public class MainController {
     SplitMenuButton choseMonth;
     @FXML
     MenuItem Jan;
+    @FXML
+    MenuItem Feb;
+    @FXML
+    MenuItem Mar;
+    @FXML
+    MenuItem Apr;
+    @FXML
+    MenuItem May;
+    @FXML
+    MenuItem Jun;
+    @FXML
+    MenuItem Jul;
+    @FXML
+    MenuItem Aug;
+    @FXML
+    MenuItem Sep;
+    @FXML
+    MenuItem Oct;
+    @FXML
+    MenuItem Nov;
+    @FXML
+    MenuItem Dec;
+
+
+
 
     private final RestTemplate rest = new RestTemplate();
 
@@ -75,15 +98,61 @@ public class MainController {
 
         getGraphic.setOnAction(event -> {
             BarChart.callVerticalBarChart();
-            BarChart.callHorizontalBarChart();
+//            BarChart.callHorizontalBarChart();
             LineChart.callLineChart();
         });
 
 //        choseMonth.setOnAction(event ->{
 //            PieChart.callPieChart();
 //        });
+//
+// добавить остальные кнопки
         Jan.setOnAction(event ->{
-            SplitMenu.callJan();        //добавить остальные кнопки
+            SplitMenu.callJan();
+        });
+
+        Feb.setOnAction(event ->{
+            SplitMenu.callFeb();
+        });
+
+        Mar.setOnAction(event ->{
+            SplitMenu.callMar();
+        });
+
+        Apr.setOnAction(event ->{
+            SplitMenu.callApr();
+        });
+
+        May.setOnAction(event ->{
+            SplitMenu.callMay();
+        });
+
+        Jun.setOnAction(event ->{
+            SplitMenu.callJun();
+        });
+
+        Jul.setOnAction(event ->{
+            SplitMenu.callJul();
+        });
+
+        Aug.setOnAction(event ->{
+            SplitMenu.callAug();
+        });
+
+        Sep.setOnAction(event ->{
+            SplitMenu.callSep();
+        });
+
+        Oct.setOnAction(event ->{
+            SplitMenu.callOct();
+        });
+
+        Nov.setOnAction(event ->{
+            SplitMenu.callNow();
+        });
+
+        Dec.setOnAction(event ->{
+            SplitMenu.callDec();
         });
 
         log.info("Main scene successfully initialize.");
