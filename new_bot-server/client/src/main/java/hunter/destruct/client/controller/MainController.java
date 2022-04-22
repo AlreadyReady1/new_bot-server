@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 import java.util.List;
 
+//todo: переменные все public. Нехорошо)
 @Slf4j
 public class MainController {
 
@@ -144,6 +145,8 @@ public class MainController {
 //        });
 //
 // добавить остальные кнопки
+        //todo: имена полей должны начинаться с маленькой буквы
+        //todo: написал, как стоит это поменять в SplitMenu
         Jan.setOnAction(event -> {
             SplitMenu.callJan();
         });

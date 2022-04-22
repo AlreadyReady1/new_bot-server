@@ -2,6 +2,9 @@ package hunter.destruct.client.controller;
 
 import hunter.destruct.client.controller.diagrams.PieChart;
 
+//todo: wtf, что это за кошмар? :D
+//todo: сделай 1(!) метод, который будет принимать нужную для формирования диаграммы информацию
+//todo: Для этого вовсе не нужно его в отдельный класс выводить. Реализуй его в самом контроллере, только не делай его статическим
 public class SplitMenu {
 
     public static void callJan(){PieChart.callPieChart();}

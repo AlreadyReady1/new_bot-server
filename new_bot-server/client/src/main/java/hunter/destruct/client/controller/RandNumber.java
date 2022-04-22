@@ -1,5 +1,8 @@
 package hunter.destruct.client.controller;
 
+//todo:  :D
+//todo: Тебе тут даже класс не нужен. Просто сделай хэшмапу Map<Mounth, Double> и храни в ней по месяцам все свои числа.
+//PS: ты забыл сделать переменные приватными
 public class RandNumber {
 
     static double max = 10;
@@ -87,5 +90,4 @@ public class RandNumber {
 
     static  double randFactor = 0.66;
 //  static  double randFactor = Math.random();
-
 }

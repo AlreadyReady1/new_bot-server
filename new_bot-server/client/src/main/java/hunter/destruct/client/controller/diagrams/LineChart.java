@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import static hunter.destruct.client.controller.Month.*;
 
+//todo: сделай, что бы метод хэшмапу принимал. И тогда сможешь по нормальному сборку сделать
 public class LineChart {
 
     public static void callLineChart(){

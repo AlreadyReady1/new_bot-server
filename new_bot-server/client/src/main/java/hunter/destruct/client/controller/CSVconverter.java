@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//todo: пойдет, только избавляйся от привычки выводить в System.out. Ставь перед классом аннотацию ломбока @Slf4j и используй log.info()/
+//log.info("IN getByEmail -> user with email {} not found", email) - вот так можно его использовать. Аргументы по очереди подставляются вместо {}
 public class CSVconverter {
 
     public static void saveCSV(List<String> listOfStrings){
