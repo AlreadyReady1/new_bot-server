@@ -13,15 +13,11 @@ import static hunter.destruct.client.controller.Month.*;
 
 public class BarChart {
 
-
-
     public static void callVerticalBarChart() {
 
         CategoryAxis yAxis = new CategoryAxis();
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("млн. сообщений");
-
-
 
 
         // Create a BarChart

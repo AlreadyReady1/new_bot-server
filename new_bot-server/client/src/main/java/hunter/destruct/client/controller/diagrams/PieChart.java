@@ -13,7 +13,6 @@ public class PieChart {
     static String str2 = "Нейтральные сообщения";
     static String str3 = "Общее количество сообщений";
 
-
 //    double govermentDestructMessage, double religionDestructMessage, double drugsDestructMessage, double numberOfNeutralMessage
     public static void callPieChart( ){
 
@@ -26,13 +25,9 @@ public class PieChart {
 
         double allMessage = randDrug+randGov+randRelig+randNetral;
 
-
-
-
 //        double numberOfAllMessage = govermentDestructMessage + religionDestructMessage + drugsDestructMessage + numberOfNeutralMessage;
 
         StackPane root = new StackPane();
-
 
 
         ObservableList<javafx.scene.chart.PieChart.Data> valueList = FXCollections.observableArrayList(

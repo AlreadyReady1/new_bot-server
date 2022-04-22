@@ -17,7 +17,6 @@ import java.util.List;
 @Slf4j
 public class MainController {
 
-
     @FXML
     protected Button groupHunt;
     @FXML
@@ -28,6 +27,8 @@ public class MainController {
     protected Button getDetails;
     @FXML
     public Button getGraphic;
+    @FXML
+    public Button csvSave;
     @FXML
     SplitMenuButton choseMonth;
     @FXML
@@ -57,8 +58,31 @@ public class MainController {
 
 
 
-
     private final RestTemplate rest = new RestTemplate();
+
+//
+//    @FXML
+//    Button vbMenu;
+//    @FXML
+//    private void choseSaveFile() {
+//        FileChooser fileChooser = new FileChooser();
+//        fileChooser.setInitialDirectory(new File("D:\\git"));
+//        Window stage = vbMenu.getScene().getWindow();
+//        fileChooser.setTitle("Выберите файл сохранения");
+//        fileChooser.setInitialFileName("mysave");
+//        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file", "*.txt"),
+//                new FileChooser.ExtensionFilter("csv", "*.csv"), new FileChooser.ExtensionFilter("pdf", "*.pdf")
+//        );
+//        try {
+//            File file = fileChooser.showSaveDialog(stage);
+//            fileChooser.setInitialDirectory(file.getParentFile());
+//        }catch (Exception e)
+//        {
+//            System.out.println("Ошибка сохранения");
+//        }
+//
+//    }
+
 
     @FXML
     private void initialize() {
@@ -71,13 +95,13 @@ public class MainController {
 
                 GroupHuntResult result = resultEntity.getBody();
 
-                int allCommentsCount =  Arrays.stream(result.getTotalPosts()).sum();        //
+                int allCommentsCount = Arrays.stream(result.getTotalPosts()).sum();        //
 
                 int destroyCommentsCount = Arrays.stream(result.getDestructPosts()).sum();
                 String stringResult = destroyCommentsCount < result.getPostCount() - destroyCommentsCount ?
 
-                                String.format("Сообщество \"%s\" не является деструктивным."+ "\n"+ "Общее количество комментариев (постов): %d" +"\n"+" Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount / result.getPostCount() * 100) :
-                                String.format("Сообщество \"%s\"  потенциально деструктивно."+ "\n"+ "Общее колиество комментариев (постов): %d"  +"\n"+"Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
+                        String.format("Сообщество \"%s\" не является деструктивным." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + " Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount / result.getPostCount() * 100) :
+                        String.format("Сообщество \"%s\"  потенциально деструктивно." + "\n" + "Общее колиество комментариев (постов): %d" + "\n" + "Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
 
                 commentsArea.setText(stringResult);
             } catch (HttpClientErrorException exception) {
@@ -96,6 +120,19 @@ public class MainController {
             commentsArea.setText(destructList.toString());
         });
 
+
+        csvSave.setOnAction(event -> {
+            String id = groupIdEnter.getText();
+            var resultEntity = rest.exchange("http://localhost:8080/destruct-hunter/api/v1/hunt/group/" + id, HttpMethod.GET, null, GroupHuntResult.class);
+            GroupHuntResult result = resultEntity.getBody();
+            List<String> destructListt = result.getDestructComments();
+//            String str = CSVconverter.listToCsv(destructListt, '.');
+            commentsArea.setText("Данные сохранены"+"\n");
+            CSVconverter.saveCSV(destructListt);
+
+
+        });
+
         getGraphic.setOnAction(event -> {
             BarChart.callVerticalBarChart();
 //            BarChart.callHorizontalBarChart();
@@ -107,58 +144,56 @@ public class MainController {
 //        });
 //
 // добавить остальные кнопки
-        Jan.setOnAction(event ->{
+        Jan.setOnAction(event -> {
             SplitMenu.callJan();
         });
 
-        Feb.setOnAction(event ->{
+        Feb.setOnAction(event -> {
             SplitMenu.callFeb();
         });
 
-        Mar.setOnAction(event ->{
+        Mar.setOnAction(event -> {
             SplitMenu.callMar();
         });
 
-        Apr.setOnAction(event ->{
+        Apr.setOnAction(event -> {
             SplitMenu.callApr();
         });
 
-        May.setOnAction(event ->{
+        May.setOnAction(event -> {
             SplitMenu.callMay();
         });
 
-        Jun.setOnAction(event ->{
+        Jun.setOnAction(event -> {
             SplitMenu.callJun();
         });
 
-        Jul.setOnAction(event ->{
+        Jul.setOnAction(event -> {
             SplitMenu.callJul();
         });
 
-        Aug.setOnAction(event ->{
+        Aug.setOnAction(event -> {
             SplitMenu.callAug();
         });
 
-        Sep.setOnAction(event ->{
+        Sep.setOnAction(event -> {
             SplitMenu.callSep();
         });
 
-        Oct.setOnAction(event ->{
+        Oct.setOnAction(event -> {
             SplitMenu.callOct();
         });
 
-        Nov.setOnAction(event ->{
+        Nov.setOnAction(event -> {
             SplitMenu.callNow();
         });
 
-        Dec.setOnAction(event ->{
+        Dec.setOnAction(event -> {
             SplitMenu.callDec();
         });
 
         log.info("Main scene successfully initialize.");
     }
-
-
 
 
 }

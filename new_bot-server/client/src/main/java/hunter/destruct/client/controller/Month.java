@@ -2,8 +2,6 @@ package hunter.destruct.client.controller;
 
 public enum Month {
 
-
-
     JANUARY("Январь"),
     FEBRUARY("Февраль"),
     MARCH("Март"),
