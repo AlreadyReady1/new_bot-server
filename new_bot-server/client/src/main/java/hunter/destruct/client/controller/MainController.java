@@ -1,7 +1,9 @@
 package hunter.destruct.client.controller;
 
+import hunter.destruct.client.constansts.Month;
 import hunter.destruct.client.controller.diagrams.BarChart;
 import hunter.destruct.client.controller.diagrams.LineChart;
+import hunter.destruct.client.controller.diagrams.PieChart;
 import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,6 +18,8 @@ import java.util.List;
 
 @Slf4j
 public class MainController {
+
+    private final CSVconverter csVconverter = new CSVconverter();
 
     @FXML
     protected Button groupHunt;
@@ -57,32 +61,9 @@ public class MainController {
     MenuItem Dec;
 
 
+    private GroupHuntResult result;
 
     private final RestTemplate rest = new RestTemplate();
-
-//
-//    @FXML
-//    Button vbMenu;
-//    @FXML
-//    private void choseSaveFile() {
-//        FileChooser fileChooser = new FileChooser();
-//        fileChooser.setInitialDirectory(new File("D:\\git"));
-//        Window stage = vbMenu.getScene().getWindow();
-//        fileChooser.setTitle("Выберите файл сохранения");
-//        fileChooser.setInitialFileName("mysave");
-//        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("text file", "*.txt"),
-//                new FileChooser.ExtensionFilter("csv", "*.csv"), new FileChooser.ExtensionFilter("pdf", "*.pdf")
-//        );
-//        try {
-//            File file = fileChooser.showSaveDialog(stage);
-//            fileChooser.setInitialDirectory(file.getParentFile());
-//        }catch (Exception e)
-//        {
-//            System.out.println("Ошибка сохранения");
-//        }
-//
-//    }
-
 
     @FXML
     private void initialize() {
@@ -93,7 +74,7 @@ public class MainController {
             try {
                 var resultEntity = rest.exchange("http://localhost:8080/destruct-hunter/api/v1/hunt/group/" + id, HttpMethod.GET, null, GroupHuntResult.class);
 
-                GroupHuntResult result = resultEntity.getBody();
+                result = resultEntity.getBody();
 
                 int allCommentsCount = Arrays.stream(result.getTotalPosts()).sum();        //
 
@@ -106,91 +87,46 @@ public class MainController {
                 commentsArea.setText(stringResult);
             } catch (HttpClientErrorException exception) {
                 if (exception.getStatusCode() == HttpStatus.NOT_FOUND) {
+                    result = GroupHuntResult.empty();
                     commentsArea.setText(String.format("Сообщество с id %s не найдено или не может быть просмотрено", id));
                 }
             }
         });
 
         getDetails.setOnAction(event -> {
-            String id = groupIdEnter.getText();
-            var resultEntity = rest.exchange("http://localhost:8080/destruct-hunter/api/v1/hunt/group/" + id, HttpMethod.GET, null, GroupHuntResult.class);
-
-            GroupHuntResult result = resultEntity.getBody();
             List<String> destructList = result.getDestructComments();
             commentsArea.setText(destructList.toString());
         });
 
 
         csvSave.setOnAction(event -> {
-            String id = groupIdEnter.getText();
-            var resultEntity = rest.exchange("http://localhost:8080/destruct-hunter/api/v1/hunt/group/" + id, HttpMethod.GET, null, GroupHuntResult.class);
-            GroupHuntResult result = resultEntity.getBody();
             List<String> destructListt = result.getDestructComments();
-//            String str = CSVconverter.listToCsv(destructListt, '.');
-            commentsArea.setText("Данные сохранены"+"\n");
-            CSVconverter.saveCSV(destructListt);
-
+            csVconverter.saveCSV(destructListt);
+            commentsArea.setText("Данные сохранены" + "\n");
 
         });
 
         getGraphic.setOnAction(event -> {
-            BarChart.callVerticalBarChart();
+            if (result != null && result.getDataMap() != null) {
+                BarChart.callVerticalBarChart(result.getDataMap());
+                LineChart.callLineChart(result.getDataMap());
+            }
 //            BarChart.callHorizontalBarChart();
-            LineChart.callLineChart();
+
         });
 
-//        choseMonth.setOnAction(event ->{
-//            PieChart.callPieChart();
-//        });
-//
-// добавить остальные кнопки
-        Jan.setOnAction(event -> {
-            SplitMenu.callJan();
-        });
-
-        Feb.setOnAction(event -> {
-            SplitMenu.callFeb();
-        });
-
-        Mar.setOnAction(event -> {
-            SplitMenu.callMar();
-        });
-
-        Apr.setOnAction(event -> {
-            SplitMenu.callApr();
-        });
-
-        May.setOnAction(event -> {
-            SplitMenu.callMay();
-        });
-
-        Jun.setOnAction(event -> {
-            SplitMenu.callJun();
-        });
-
-        Jul.setOnAction(event -> {
-            SplitMenu.callJul();
-        });
-
-        Aug.setOnAction(event -> {
-            SplitMenu.callAug();
-        });
-
-        Sep.setOnAction(event -> {
-            SplitMenu.callSep();
-        });
-
-        Oct.setOnAction(event -> {
-            SplitMenu.callOct();
-        });
-
-        Nov.setOnAction(event -> {
-            SplitMenu.callNow();
-        });
-
-        Dec.setOnAction(event -> {
-            SplitMenu.callDec();
-        });
+        Jan.setOnAction(event -> PieChart.get(Month.JANUARY, result.getDataMap().get(Month.JANUARY)));
+        Feb.setOnAction(event -> PieChart.get(Month.FEBRUARY, result.getDataMap().get(Month.FEBRUARY)));
+        Mar.setOnAction(event -> PieChart.get(Month.MARCH, result.getDataMap().get(Month.MARCH)));
+        Apr.setOnAction(event -> PieChart.get(Month.APRIL, result.getDataMap().get(Month.APRIL)));
+        May.setOnAction(event -> PieChart.get(Month.MAY, result.getDataMap().get(Month.MAY)));
+        Jun.setOnAction(event -> PieChart.get(Month.JUNE, result.getDataMap().get(Month.MAY)));
+        Jul.setOnAction(event -> PieChart.get(Month.JULY, result.getDataMap().get(Month.JULY)));
+        Aug.setOnAction(event -> PieChart.get(Month.AUGUST, result.getDataMap().get(Month.AUGUST)));
+        Sep.setOnAction(event -> PieChart.get(Month.SEPTEMBER, result.getDataMap().get(Month.SEPTEMBER)));
+        Oct.setOnAction(event -> PieChart.get(Month.OCTOBER, result.getDataMap().get(Month.OCTOBER)));
+        Nov.setOnAction(event -> PieChart.get(Month.NOVEMBER, result.getDataMap().get(Month.NOVEMBER)));
+        Dec.setOnAction(event -> PieChart.get(Month.DECEMBER, result.getDataMap().get(Month.DECEMBER)));
 
         log.info("Main scene successfully initialize.");
     }

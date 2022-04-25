@@ -6,7 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.Month;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 @RestController
@@ -14,23 +18,24 @@ public class GroupResourceImpl implements GroupResource {
 
     @Override
     public ResponseEntity<GroupHuntResult> hunt(String groupId) {
-
         log.info("Checking group with id {} by destructive comments", groupId);
         if ("toportg".equals(groupId)) {
             return ResponseEntity.ok(GroupHuntResult.builder()
+
                     .groupName("ТОПОР")
                     .groupId(groupId)
-                    .totalPosts(new int[]{155166,100})
-                    .destructPosts(new int[]{56,10})
+                    .totalPosts(new int[]{155166, 100})
+                    .destructPosts(new int[]{56, 10})
+                    .dataMap(createDataMap())
 
                     .postCount(100)
                     .destructComments(
                             List.of(
 
-                                    "\n" + "На лбу каленым железом себе зешки набивайте. Идиоты." +"\n" +
-                                           "Власть пора менять -  заигрались, зажрались" +"\n" +
-                                           "Песков как п..данет че-нить ...позорник пути" +"\n" +
-                                    "Дочь пермского депутата-миллиардера Плотникова, сидя в Дубае (где она и проводит большую часть жизни), пишет у себя в Инсте (который запрещён в РФ), что «Россия - лучшая страна, и все стали ещё сильнее патриотами»",
+                                    "\n" + "На лбу каленым железом себе зешки набивайте. Идиоты." + "\n" +
+                                            "Власть пора менять -  заигрались, зажрались" + "\n" +
+                                            "Песков как п..данет че-нить ...позорник пути" + "\n" +
+                                            "Дочь пермского депутата-миллиардера Плотникова, сидя в Дубае (где она и проводит большую часть жизни), пишет у себя в Инсте (который запрещён в РФ), что «Россия - лучшая страна, и все стали ещё сильнее патриотами»",
                                     "Уже не-депутат Николай Бондаренко о лже-национализации, от которой не пострадает ни один олигарх, «прихватизатор» и сырьевой барон!\n" +
                                             "Это позор, а не национализация! Яхты, виллы и миллиардные счета «золотой сотни Forbes” - это святое для правящей «элитки».\n" +
                                             "Национализацию надо начинать не с IKEA, McDonalds и ZARA, а с нефти, газа, леса, металлов, угля, золота, никеля, аллюминия, удобрений и других природных богатств России!",
@@ -60,4 +65,26 @@ public class GroupResourceImpl implements GroupResource {
 
         return ResponseEntity.notFound().build();
     }
+
+    public Map<Month, GroupHuntResult.Stats> createDataMap() {
+        Map<Month, GroupHuntResult.Stats> dataMap = new HashMap<>();
+        ThreadLocalRandom.current().nextInt(300000,3000000);
+        int max = 100000;
+        int min = 1000;
+
+        for (Month month : Month.values()) {
+            dataMap.put(month, GroupHuntResult.Stats.builder()
+                    .allComments(ThreadLocalRandom.current().nextInt(min, max))
+                    .destructComments(ThreadLocalRandom.current().nextInt(min, max))
+                    .messagesAboutDrugs(ThreadLocalRandom.current().nextInt(min, max))
+                    .messagesAboutSeparatism(ThreadLocalRandom.current().nextInt(min, max))
+                    .messagesAboutTerrorism(ThreadLocalRandom.current().nextInt(min, max))
+                    .build()
+
+            );
+        }
+        return dataMap;
+    }
+
 }
+//

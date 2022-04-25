@@ -7,21 +7,21 @@ import java.util.Scanner;
 
 public class CSVconverter {
 
-    public static void saveCSV(List<String> listOfStrings){
+    public void saveCSV(List<String> listOfStrings) {
         try (PrintWriter writer = new PrintWriter(new File("D://Bot//textSaveMetod.csv"))) {
-          writer.write("\ufeff");
+            writer.write("\ufeff");
 
 
             StringBuilder sb = new StringBuilder();
-            for(int i = 0; i < listOfStrings.size() - 1 ; i++) {
-            sb.append(listOfStrings.get(i));
+            for (int i = 0; i < listOfStrings.size() - 1; i++) {
+                sb.append(listOfStrings.get(i));
 //            sb.append(separator);
-        }
+            }
 
-        // last string, no separator
-        if(listOfStrings.size() > 0){
-            sb.append(listOfStrings.get(listOfStrings.size()-1));
-        }
+            // last string, no separator
+            if (listOfStrings.size() > 0) {
+                sb.append(listOfStrings.get(listOfStrings.size() - 1));
+            }
 
             writer.write(sb.toString());
             writer.close();
@@ -30,11 +30,11 @@ public class CSVconverter {
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
-        CSVconverter testCSV =  new CSVconverter();
+        CSVconverter testCSV = new CSVconverter();
         testCSV.readCSVFile();
     }
 
-    public void readCSVFile(){
+    public void readCSVFile() {
         List<List<String>> records = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File("D://Bot//textSaveMetod.csv"));) {
             while (scanner.hasNextLine()) {
@@ -44,6 +44,7 @@ public class CSVconverter {
             e.printStackTrace();
         }
     }
+
     private List<String> getRecordFromLine(String line) {
         List<String> values = new ArrayList<String>();
         try (Scanner rowScanner = new Scanner(line)) {
