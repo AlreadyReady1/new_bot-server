@@ -1,8 +1,5 @@
 package hunter.destruct.client.controller;
 
-import javafx.stage.DirectoryChooser;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 
@@ -10,9 +7,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 @Slf4j
 public class CSVSaver extends Component {
@@ -56,8 +51,7 @@ public class CSVSaver extends Component {
 
 
             } catch (IOException e) {
-                log.info(" vse xuina, peredelivai!!!!!1");
-                e.printStackTrace();
+                log.error(" vse xuina, peredelivai!!!!!1", e);
             }
 
 

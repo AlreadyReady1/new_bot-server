@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /destruct-hunter
+  error:
+    include-message: always
+
+application:
+  swagger:
+    enabled: true
+    title: Destruct hunter
+    description: Поиск деструктивного контента
+    version: 1.0.1
+  bot:
+    id: 210995024
+    token: d964ad27089e7fcfedda2c78d9007c1277b2fb294c8b974bb07c7112469473f86092012cd3a27d8c9756c
+    oauth:
+      clientId: 8092050
+      clientSecret: qTUB2Fu5tPfRxom5ZCtv
+      authorizationCode: 64d636028c95fcb826
+      webhookUri: http://oauth.vk.com/blank.html
+      authorizeUri: https://oauth.vk.com/authorize
+
+
