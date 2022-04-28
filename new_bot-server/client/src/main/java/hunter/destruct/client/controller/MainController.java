@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class MainController {
 
-    private final CSVconverter csVconverter = new CSVconverter();
+    private final CSVSaver CSVSaver = new CSVSaver();
 
     @FXML
     protected Button groupHunt;
@@ -100,8 +100,9 @@ public class MainController {
 
 
         csvSave.setOnAction(event -> {
+            CSVSaver CSVSaver = new CSVSaver();
             List<String> destructListt = result.getDestructComments();
-            csVconverter.saveCSV(destructListt);
+            CSVSaver.saveCSV(destructListt);
             commentsArea.setText("Данные сохранены" + "\n");
 
         });
