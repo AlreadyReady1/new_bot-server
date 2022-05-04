@@ -27,7 +27,7 @@ public class PieChartt {
         ObservableList<javafx.scene.chart.PieChart.Data> valueList = dataFrom(stats);
 
         javafx.scene.chart.PieChart pieChart = new javafx.scene.chart.PieChart(valueList);
-        pieChart.setTitle("Статистика за " + month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
+        pieChart.setTitle("Статистика за " + month.getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()));
         pieChart.setData(valueList);
 
         final Label caption = new Label("");
@@ -40,10 +40,8 @@ public class PieChartt {
                 public void handle(MouseEvent mouseEvent) {
                     caption.setTranslateX(mouseEvent.getX());
                     caption.setTranslateY(mouseEvent.getY());
-
                     caption.setText(String.valueOf(data.getPieValue()));
                 }
-
             });
         }
 
@@ -58,12 +56,6 @@ public class PieChartt {
         primaryStage.setY(100);
         primaryStage.toFront();
 
-//        for (final PieChart.Data data : pieChart.getData()) {
-//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
-//                @Override
-//
-//            });
-
         primaryStage.show();
     }
 
@@ -72,15 +64,7 @@ public class PieChartt {
                 new javafx.scene.chart.PieChart.Data(DestructClassName.GOVERMENT, stats.getMessagesAboutSeparatism()),
                 new javafx.scene.chart.PieChart.Data(DestructClassName.ETNOS, stats.getMessagesAboutTerrorism()),
                 new javafx.scene.chart.PieChart.Data(DestructClassName.DRUGS, stats.getMessagesAboutDrugs()),
-                new javafx.scene.chart.PieChart.Data(DestructClassName.NEUTRAL, (stats.getAllComments()) - stats.getDestructComments()));
+                new javafx.scene.chart.PieChart.Data(DestructClassName.NEUTRAL, (stats.getAllComments() - stats.getDestructComments()))
+        );
     }
-//        public void handle(MouseEvent e, javafx.scene.chart.PieChart.Data data) {
-//            final Label caption = new Label("");
-//            caption.setTextFill(Color.WHITE);
-//            caption.setStyle("-fx-font: 12 arial;");
-//            caption.setTranslateX(e.getSceneX());
-//            caption.setTranslateY(e.getSceneY());
-//
-//            caption.setText(String.valueOf(data.getPieValue()));
-//        }
 }

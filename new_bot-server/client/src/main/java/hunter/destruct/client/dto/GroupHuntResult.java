@@ -17,9 +17,6 @@ public class GroupHuntResult {
 
     private String groupName;
     private String groupId;
-    private int[] totalPosts;
-    private int[] destructPosts;
-    private int postCount;
     private List<String> destructComments;
     private Map<LocalDate, Stats> dataMap;
 
@@ -33,8 +30,6 @@ public class GroupHuntResult {
             emptyResult = GroupHuntResult.builder()
                 .groupName("")
                 .groupId("")
-                .totalPosts(new int[0])
-                .destructPosts(new int[0])
                 .destructComments(Collections.emptyList())
                 .dataMap(Collections.emptyMap())
 

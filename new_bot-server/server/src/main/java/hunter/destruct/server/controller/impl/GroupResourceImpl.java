@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +27,7 @@ public class GroupResourceImpl implements GroupResource {
 
                     .groupName("ТОПОР")
                     .groupId(groupId)
-                    .totalPosts(new int[]{155166, 100})
-                    .destructPosts(new int[]{56, 10})
-                    .dataMap(getDataMap(groupId))
-
-                    .postCount(100)
+                    .dataMap(getDataMap(groupId, true))
                     .destructComments(
                             List.of(
 
@@ -86,10 +81,7 @@ public class GroupResourceImpl implements GroupResource {
 
                     .groupName("Наука и Техника")
                     .groupId(groupId)
-                    .totalPosts(new int[]{17166, 100})
-                    .destructPosts(new int[]{10, 1})
-                    .dataMap(getDataMap(groupId))
-                    .postCount(100)
+                    .dataMap(getDataMap(groupId, false))
                     .destructComments(
                             List.of(
 
@@ -180,25 +172,46 @@ public class GroupResourceImpl implements GroupResource {
         return ResponseEntity.notFound().build();
     }
 
-    public Map<LocalDate, GroupHuntResult.Stats> getDataMap(String groupId) {
+    public Map<LocalDate, GroupHuntResult.Stats> getDataMap(String groupId, boolean destruct) {
         if (cacheResults.containsKey(groupId))
             return cacheResults.get(groupId);
 
         Map<LocalDate, GroupHuntResult.Stats> dataMap = new HashMap<>();
 
-        int max = 100000;
-        int min = 10000;
+        int delta = ThreadLocalRandom.current().nextInt(10000, 100000);
+
+        int maxDestruct, minDestruct;
+        if (destruct) {
+            maxDestruct = 78;
+            minDestruct = 54;
+        } else {
+            maxDestruct = 51;
+            minDestruct = 13;
+        }
+
         LocalDate now = LocalDate.now();
         LocalDate current = LocalDate.now().minusYears(1L);
         while (current.isBefore(now)) {
+            int destructPercent = ThreadLocalRandom.current().nextInt(minDestruct, maxDestruct);
+            int separatismPercent = ThreadLocalRandom.current().nextInt(16, destructPercent);
+            int terrorismPercent = ThreadLocalRandom.current().nextInt(15, separatismPercent);
+            int drugsPercent = destructPercent - separatismPercent - terrorismPercent;
+
+            int allComments;
+            boolean booleanDelta = ThreadLocalRandom.current().nextBoolean();
+            if (booleanDelta)
+                allComments = (int) (delta * ThreadLocalRandom.current().nextDouble(1, 1.13));
+            else
+                allComments = (int) (delta * ThreadLocalRandom.current().nextDouble(0.87, 1));
+
             dataMap.put(
                     current,
                     GroupHuntResult.Stats.builder()
-                            .allComments(ThreadLocalRandom.current().nextInt(min, max))
-                            .destructComments(ThreadLocalRandom.current().nextInt(min, max))
-                            .messagesAboutDrugs(ThreadLocalRandom.current().nextInt(min, max))
-                            .messagesAboutSeparatism(ThreadLocalRandom.current().nextInt(min, max))
-                            .messagesAboutTerrorism(ThreadLocalRandom.current().nextInt(min, max))
+                            .allComments(allComments)
+                            .destructComments(allComments * destructPercent / 100)
+                            .messagesAboutSeparatism(allComments * separatismPercent / 100)
+                            .messagesAboutTerrorism(allComments * terrorismPercent / 100)
+                            .messagesAboutDrugs(drugsPercent < 0 ? 0 : allComments * drugsPercent / 100)
                             .build()
             );
             current = current.plusMonths(1);

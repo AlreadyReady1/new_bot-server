@@ -54,13 +54,17 @@ public class MainController {
 
                 result = resultEntity.getBody();
 
-                int allCommentsCount = Arrays.stream(result.getTotalPosts()).sum();        //
+                int allCommentsCount = result.getDataMap().values().stream()
+                        .mapToInt(GroupHuntResult.Stats::getAllComments)
+                        .sum();
 
-                int destroyCommentsCount = Arrays.stream(result.getDestructPosts()).sum();
-                String stringResult = destroyCommentsCount < result.getPostCount() - destroyCommentsCount ?
+                int destroyCommentsCount = result.getDataMap().values().stream()
+                        .mapToInt(GroupHuntResult.Stats::getDestructComments)
+                        .sum();
+                String stringResult = destroyCommentsCount < allCommentsCount - destroyCommentsCount ?
 
-                        String.format("Сообщество \"%s\" не является деструктивным." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + " Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount()) :
-                        String.format("Сообщество \"%s\"  потенциально деструктивно." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + "Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
+                        String.format("Сообщество \"%s\" не является деструктивным." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + " Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / allCommentsCount) :
+                        String.format("Сообщество \"%s\"  потенциально деструктивно." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + "Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / allCommentsCount);
 
                 commentsArea.setText(stringResult);
             } catch (HttpClientErrorException exception) {
