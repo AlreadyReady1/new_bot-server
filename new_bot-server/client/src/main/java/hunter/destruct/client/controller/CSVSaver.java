@@ -27,7 +27,7 @@ public class CSVSaver extends Component {
             if (FilenameUtils.getExtension(file.getName()).equalsIgnoreCase("csv")) {
                 // filename is OK as-is
             } else {
-                file = new File(file.toString() + ".csv");  // append .xml if "foo.jpg.xml" is OK
+                file = new File(file.toString() + ".csv"); 
                 fileChooser.setSelectedFile(file);
             }
             try (Writer fileWrite = new BufferedWriter(

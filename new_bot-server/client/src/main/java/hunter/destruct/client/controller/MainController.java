@@ -3,7 +3,7 @@ package hunter.destruct.client.controller;
 import hunter.destruct.client.constansts.Month;
 import hunter.destruct.client.controller.diagrams.BarChart;
 import hunter.destruct.client.controller.diagrams.LineChart;
-import hunter.destruct.client.controller.diagrams.PieChart;
+import hunter.destruct.client.controller.diagrams.PieChartt;
 import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -19,47 +19,25 @@ import java.util.List;
 @Slf4j
 public class MainController {
 
-    private final CSVSaver CSVSaver = new CSVSaver();
-
-    @FXML
-    protected Button groupHunt;
-    @FXML
-    protected TextField groupIdEnter;
-    @FXML
-    protected TextArea commentsArea;
-    @FXML
-    protected Button getDetails;
-    @FXML
-    public Button getGraphic;
-    @FXML
-    public Button csvSave;
-    @FXML
-    SplitMenuButton choseMonth;
-    @FXML
-    MenuItem Jan;
-    @FXML
-    MenuItem Feb;
-    @FXML
-    MenuItem Mar;
-    @FXML
-    MenuItem Apr;
-    @FXML
-    MenuItem May;
-    @FXML
-    MenuItem Jun;
-    @FXML
-    MenuItem Jul;
-    @FXML
-    MenuItem Aug;
-    @FXML
-    MenuItem Sep;
-    @FXML
-    MenuItem Oct;
-    @FXML
-    MenuItem Nov;
-    @FXML
-    MenuItem Dec;
-
+    @FXML protected Button groupHunt;
+    @FXML protected TextField groupIdEnter;
+    @FXML protected TextArea commentsArea;
+    @FXML protected Button getDetails;
+    @FXML public Button getGraphic;
+    @FXML public Button csvSave;
+    @FXML SplitMenuButton choseMonth;
+    @FXML MenuItem Jan;
+    @FXML MenuItem Feb;
+    @FXML MenuItem Mar;
+    @FXML MenuItem Apr;
+    @FXML MenuItem May;
+    @FXML MenuItem Jun;
+    @FXML MenuItem Jul;
+    @FXML MenuItem Aug;
+    @FXML MenuItem Sep;
+    @FXML MenuItem Oct;
+    @FXML MenuItem Nov;
+    @FXML MenuItem Dec;
 
     private GroupHuntResult result;
 
@@ -81,8 +59,8 @@ public class MainController {
                 int destroyCommentsCount = Arrays.stream(result.getDestructPosts()).sum();
                 String stringResult = destroyCommentsCount < result.getPostCount() - destroyCommentsCount ?
 
-                        String.format("Сообщество \"%s\" не является деструктивным." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + " Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount / result.getPostCount() * 100) :
-                        String.format("Сообщество \"%s\"  потенциально деструктивно." + "\n" + "Общее колиество комментариев (постов): %d" + "\n" + "Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
+                        String.format("Сообщество \"%s\" не является деструктивным." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + " Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount()) :
+                        String.format("Сообщество \"%s\"  потенциально деструктивно." + "\n" + "Общее количество комментариев (постов): %d" + "\n" + "Процент деструктивных комментариев (постов): %d", result.getGroupName(), allCommentsCount, destroyCommentsCount * 100 / result.getPostCount());
 
                 commentsArea.setText(stringResult);
             } catch (HttpClientErrorException exception) {
@@ -116,18 +94,18 @@ public class MainController {
 
         });
 
-        Jan.setOnAction(event -> PieChart.get(Month.JANUARY, result.getDataMap().get(Month.JANUARY)));
-        Feb.setOnAction(event -> PieChart.get(Month.FEBRUARY, result.getDataMap().get(Month.FEBRUARY)));
-        Mar.setOnAction(event -> PieChart.get(Month.MARCH, result.getDataMap().get(Month.MARCH)));
-        Apr.setOnAction(event -> PieChart.get(Month.APRIL, result.getDataMap().get(Month.APRIL)));
-        May.setOnAction(event -> PieChart.get(Month.MAY, result.getDataMap().get(Month.MAY)));
-        Jun.setOnAction(event -> PieChart.get(Month.JUNE, result.getDataMap().get(Month.MAY)));
-        Jul.setOnAction(event -> PieChart.get(Month.JULY, result.getDataMap().get(Month.JULY)));
-        Aug.setOnAction(event -> PieChart.get(Month.AUGUST, result.getDataMap().get(Month.AUGUST)));
-        Sep.setOnAction(event -> PieChart.get(Month.SEPTEMBER, result.getDataMap().get(Month.SEPTEMBER)));
-        Oct.setOnAction(event -> PieChart.get(Month.OCTOBER, result.getDataMap().get(Month.OCTOBER)));
-        Nov.setOnAction(event -> PieChart.get(Month.NOVEMBER, result.getDataMap().get(Month.NOVEMBER)));
-        Dec.setOnAction(event -> PieChart.get(Month.DECEMBER, result.getDataMap().get(Month.DECEMBER)));
+        Jan.setOnAction(event -> PieChartt.get(Month.JANUARY, result.getDataMap().get(Month.JANUARY)));
+        Feb.setOnAction(event -> PieChartt.get(Month.FEBRUARY, result.getDataMap().get(Month.FEBRUARY)));
+        Mar.setOnAction(event -> PieChartt.get(Month.MARCH, result.getDataMap().get(Month.MARCH)));
+        Apr.setOnAction(event -> PieChartt.get(Month.APRIL, result.getDataMap().get(Month.APRIL)));
+        May.setOnAction(event -> PieChartt.get(Month.MAY, result.getDataMap().get(Month.MAY)));
+        Jun.setOnAction(event -> PieChartt.get(Month.JUNE, result.getDataMap().get(Month.MAY)));
+        Jul.setOnAction(event -> PieChartt.get(Month.JULY, result.getDataMap().get(Month.JULY)));
+        Aug.setOnAction(event -> PieChartt.get(Month.AUGUST, result.getDataMap().get(Month.AUGUST)));
+        Sep.setOnAction(event -> PieChartt.get(Month.SEPTEMBER, result.getDataMap().get(Month.SEPTEMBER)));
+        Oct.setOnAction(event -> PieChartt.get(Month.OCTOBER, result.getDataMap().get(Month.OCTOBER)));
+        Nov.setOnAction(event -> PieChartt.get(Month.NOVEMBER, result.getDataMap().get(Month.NOVEMBER)));
+        Dec.setOnAction(event -> PieChartt.get(Month.DECEMBER, result.getDataMap().get(Month.DECEMBER)));
 
         log.info("Main scene successfully initialize.");
     }

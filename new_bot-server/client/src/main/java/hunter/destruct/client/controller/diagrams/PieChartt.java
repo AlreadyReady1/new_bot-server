@@ -6,11 +6,15 @@ import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.event.EventHandler;
 
-
-public class PieChart {
+public class PieChartt {
 
     public static void get(Month month, GroupHuntResult.Stats stats) {
 
@@ -25,17 +29,21 @@ public class PieChart {
         root.getChildren().addAll(pieChart);
 
         pieChart.setStartAngle(30);
-        Scene scene = new Scene(root, 500, 400);
+        Scene scene = new Scene(root, 900, 900);
         Stage primaryStage = new Stage();
         primaryStage.setTitle("Destruct_Hunter");
         primaryStage.setScene(scene);
-        primaryStage.setX(1250);
+        primaryStage.setX(900);
         primaryStage.setY(100);
         primaryStage.toFront();
 
+//        for (final PieChart.Data data : pieChart.getData()) {
+//            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+//                @Override
+//
+//            });
+
         primaryStage.show();
-
-
     }
 
     private static ObservableList<javafx.scene.chart.PieChart.Data> dataFrom(GroupHuntResult.Stats stats) {
@@ -45,5 +53,13 @@ public class PieChart {
                 new javafx.scene.chart.PieChart.Data(DestructClassName.DRUGS, stats.getMessagesAboutDrugs()),
                 new javafx.scene.chart.PieChart.Data(DestructClassName.NEUTRAL, (stats.getAllComments()) - stats.getDestructComments()));
     }
-
+//        public void handle(MouseEvent e, javafx.scene.chart.PieChart.Data data) {
+//            final Label caption = new Label("");
+//            caption.setTextFill(Color.WHITE);
+//            caption.setStyle("-fx-font: 12 arial;");
+//            caption.setTranslateX(e.getSceneX());
+//            caption.setTranslateY(e.getSceneY());
+//
+//            caption.setText(String.valueOf(data.getPieValue()));
+//        }
 }
