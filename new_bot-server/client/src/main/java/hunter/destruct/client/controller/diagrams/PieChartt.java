@@ -26,7 +26,25 @@ public class PieChartt {
         javafx.scene.chart.PieChart pieChart = new javafx.scene.chart.PieChart(valueList);
         pieChart.setTitle("Статистика за " + month.getRussianName());
         pieChart.setData(valueList);
-        root.getChildren().addAll(pieChart);
+
+        final Label caption = new Label("");
+        caption.setTextFill(Color.BLACK);
+        caption.setStyle("-fx-font: 12 arial;");
+
+        for (final PieChart.Data data : pieChart.getData()) {
+            data.getNode().addEventHandler(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    caption.setTranslateX(mouseEvent.getX());
+                    caption.setTranslateY(mouseEvent.getY());
+
+                    caption.setText(String.valueOf(data.getPieValue()));
+                }
+
+            });
+        }
+
+        root.getChildren().addAll(pieChart, caption);
 
         pieChart.setStartAngle(30);
         Scene scene = new Scene(root, 900, 900);

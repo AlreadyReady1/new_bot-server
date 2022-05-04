@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 @RestController
 public class GroupResourceImpl implements GroupResource {
+
+    private final Map<String, Map<Month, GroupHuntResult.Stats>> cacheResults = new HashMap<>();
 
     @Override
     public ResponseEntity<GroupHuntResult> hunt(String groupId) {
@@ -26,7 +29,7 @@ public class GroupResourceImpl implements GroupResource {
                     .groupId(groupId)
                     .totalPosts(new int[]{155166, 100})
                     .destructPosts(new int[]{56, 10})
-                    .dataMap(createDataMap())
+                    .dataMap(getDataMap(groupId))
 
                     .postCount(100)
                     .destructComments(
@@ -176,9 +179,12 @@ public class GroupResourceImpl implements GroupResource {
         return ResponseEntity.notFound().build();
     }
 
-    public Map<Month, GroupHuntResult.Stats> createDataMap() {
+    public Map<Month, GroupHuntResult.Stats> getDataMap(String groupId) {
+        if (cacheResults.containsKey(groupId))
+            return cacheResults.get(groupId);
+
         Map<Month, GroupHuntResult.Stats> dataMap = new HashMap<>();
-        ThreadLocalRandom.current().nextInt(300000,3000000);
+
         int max = 100000;
         int min = 10000;
         LocalDate now = LocalDate.now();
@@ -199,6 +205,8 @@ public class GroupResourceImpl implements GroupResource {
 
             );
         }
+
+        cacheResults.put(groupId, dataMap);
         return dataMap;
     }
 
