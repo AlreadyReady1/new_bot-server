@@ -9,11 +9,15 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Comparator;
+import java.util.Locale;
 import java.util.Map;
 
 public class LineChart {
 
-    public static void callLineChart(Map<Month, GroupHuntResult.Stats> dataMap){
+    public static void callLineChart(Map<LocalDate, GroupHuntResult.Stats> dataMap){
 
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -26,10 +30,12 @@ public class LineChart {
         destructData.setName("Деструктивные сообщения");
         allData.setName("Общее количество сообщений");
 
-        for (Map.Entry<Month, GroupHuntResult.Stats> monthStat : dataMap.entrySet()) {
-            destructData.getData().add(new XYChart.Data<>(monthStat.getKey().getRussianName(), monthStat.getValue().getDestructComments()));
-            allData.getData().add(new XYChart.Data<>(monthStat.getKey().getRussianName(), monthStat.getValue().getAllComments()));
-        }
+        dataMap.keySet().stream()
+                .sorted(dateComparator())
+                .forEach(date -> {
+                    destructData.getData().add(new XYChart.Data<>(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()), dataMap.get(date).getDestructComments()));
+                    allData.getData().add(new XYChart.Data<>(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()), dataMap.get(date).getAllComments()));
+                });
 
         lineChart.getData().add(destructData);
         lineChart.getData().add(allData);
@@ -49,7 +55,19 @@ public class LineChart {
         primaryStage3.toFront();
 
         primaryStage3.show();
-
     }
 
+    private static Comparator<LocalDate> dateComparator() {
+        return new Comparator<LocalDate>() {
+            @Override
+            public int compare(LocalDate o1, LocalDate o2) {
+                if (o1.isAfter(o2))
+                    return 1;
+                if (o1.isBefore(o2))
+                    return -1;
+                else
+                    return 0;
+            }
+        };
+    }
 }

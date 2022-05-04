@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
 
+import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class GroupHuntResult {
     private int[] destructPosts;
     private int postCount;
     private List<String> destructComments;
-    private Map<Month, Stats> dataMap;
+    private Map<LocalDate, Stats> dataMap;
 
     @Builder
     @Jacksonized

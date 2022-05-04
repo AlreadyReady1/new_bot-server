@@ -17,11 +17,12 @@ import java.util.concurrent.ThreadLocalRandom;
 @RestController
 public class GroupResourceImpl implements GroupResource {
 
-    private final Map<String, Map<Month, GroupHuntResult.Stats>> cacheResults = new HashMap<>();
+    private final Map<String, Map<LocalDate, GroupHuntResult.Stats>> cacheResults = new HashMap<>();
 
     @Override
     public ResponseEntity<GroupHuntResult> hunt(String groupId) {
         log.info("Checking group with id {} by destructive comments", groupId);
+
         if ("toportg".equals(groupId)) {
             return ResponseEntity.ok(GroupHuntResult.builder()
 
@@ -40,7 +41,7 @@ public class GroupResourceImpl implements GroupResource {
                                             "И развязал эту войну плешивый маразматик, сидящий в кремле" + "\n" +
                                             "Это в крови колонизаторов... Своего ничего нет, вот и подминают под себя другие страны" + "\n" +
                                             "скоро Крым вернётся в Украину, а Рашка будет ещё 20 лет выплачивать репарации и все из-за старого кгбшного идиота, который решил в своем бункере поиграть в войнушку" + "\n" +
-                                            "И русню накормить" + "\n" +                                            "И русню накормить" + "\n" +
+                                            "И русню накормить" + "\n" + "И русню накормить" + "\n" +
                                             "А русня знает за чем мрет в Украине?" + "\n" +
                                             "Ну что диванные войска.готовы к всеобщему призыву? Готовы умерать за свихнувшигося старика?" + "\n" +
                                             "Жаль, что в России настолько глупые люди, что до сих пор не раскусили, как госпропаганда ими манипулирует. Ещё одно доказательство, что на западе живут более умные люди." + "\n" +
@@ -179,31 +180,28 @@ public class GroupResourceImpl implements GroupResource {
         return ResponseEntity.notFound().build();
     }
 
-    public Map<Month, GroupHuntResult.Stats> getDataMap(String groupId) {
+    public Map<LocalDate, GroupHuntResult.Stats> getDataMap(String groupId) {
         if (cacheResults.containsKey(groupId))
             return cacheResults.get(groupId);
 
-        Map<Month, GroupHuntResult.Stats> dataMap = new HashMap<>();
+        Map<LocalDate, GroupHuntResult.Stats> dataMap = new HashMap<>();
 
         int max = 100000;
         int min = 10000;
         LocalDate now = LocalDate.now();
         LocalDate current = LocalDate.now().minusYears(1L);
-        while (current.isAfter(now)) {
-
-        }
-
-
-        for (Month month : Month.values()) {
-            dataMap.put(month, GroupHuntResult.Stats.builder()
-                    .allComments(ThreadLocalRandom.current().nextInt(min, max))
-                    .destructComments(ThreadLocalRandom.current().nextInt(min, max))
-                    .messagesAboutDrugs(ThreadLocalRandom.current().nextInt(min, max))
-                    .messagesAboutSeparatism(ThreadLocalRandom.current().nextInt(min, max))
-                    .messagesAboutTerrorism(ThreadLocalRandom.current().nextInt(min, max))
-                    .build()
-
+        while (current.isBefore(now)) {
+            dataMap.put(
+                    current,
+                    GroupHuntResult.Stats.builder()
+                            .allComments(ThreadLocalRandom.current().nextInt(min, max))
+                            .destructComments(ThreadLocalRandom.current().nextInt(min, max))
+                            .messagesAboutDrugs(ThreadLocalRandom.current().nextInt(min, max))
+                            .messagesAboutSeparatism(ThreadLocalRandom.current().nextInt(min, max))
+                            .messagesAboutTerrorism(ThreadLocalRandom.current().nextInt(min, max))
+                            .build()
             );
+            current = current.plusMonths(1);
         }
 
         cacheResults.put(groupId, dataMap);

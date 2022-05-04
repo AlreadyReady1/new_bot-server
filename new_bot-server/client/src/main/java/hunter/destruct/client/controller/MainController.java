@@ -1,6 +1,5 @@
 package hunter.destruct.client.controller;
 
-import hunter.destruct.client.constansts.Month;
 import hunter.destruct.client.controller.diagrams.BarChart;
 import hunter.destruct.client.controller.diagrams.LineChart;
 import hunter.destruct.client.controller.diagrams.PieChartt;
@@ -13,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
@@ -94,21 +94,19 @@ public class MainController {
 
         });
 
-        Jan.setOnAction(event -> PieChartt.get(Month.JANUARY, result.getDataMap().get(Month.JANUARY)));
-        Feb.setOnAction(event -> PieChartt.get(Month.FEBRUARY, result.getDataMap().get(Month.FEBRUARY)));
-        Mar.setOnAction(event -> PieChartt.get(Month.MARCH, result.getDataMap().get(Month.MARCH)));
-        Apr.setOnAction(event -> PieChartt.get(Month.APRIL, result.getDataMap().get(Month.APRIL)));
-        May.setOnAction(event -> PieChartt.get(Month.MAY, result.getDataMap().get(Month.MAY)));
-        Jun.setOnAction(event -> PieChartt.get(Month.JUNE, result.getDataMap().get(Month.MAY)));
-        Jul.setOnAction(event -> PieChartt.get(Month.JULY, result.getDataMap().get(Month.JULY)));
-        Aug.setOnAction(event -> PieChartt.get(Month.AUGUST, result.getDataMap().get(Month.AUGUST)));
-        Sep.setOnAction(event -> PieChartt.get(Month.SEPTEMBER, result.getDataMap().get(Month.SEPTEMBER)));
-        Oct.setOnAction(event -> PieChartt.get(Month.OCTOBER, result.getDataMap().get(Month.OCTOBER)));
-        Nov.setOnAction(event -> PieChartt.get(Month.NOVEMBER, result.getDataMap().get(Month.NOVEMBER)));
-        Dec.setOnAction(event -> PieChartt.get(Month.DECEMBER, result.getDataMap().get(Month.DECEMBER)));
+        Jan.setOnAction(event -> PieChartt.get(Month.JANUARY, result.getStatsByMonth(Month.JANUARY)));
+        Feb.setOnAction(event -> PieChartt.get(Month.FEBRUARY, result.getStatsByMonth(Month.FEBRUARY)));
+        Mar.setOnAction(event -> PieChartt.get(Month.MARCH, result.getStatsByMonth(Month.MARCH)));
+        Apr.setOnAction(event -> PieChartt.get(Month.APRIL, result.getStatsByMonth(Month.APRIL)));
+        May.setOnAction(event -> PieChartt.get(Month.MAY, result.getStatsByMonth(Month.MAY)));
+        Jun.setOnAction(event -> PieChartt.get(Month.JUNE, result.getStatsByMonth(Month.MAY)));
+        Jul.setOnAction(event -> PieChartt.get(Month.JULY, result.getStatsByMonth(Month.JULY)));
+        Aug.setOnAction(event -> PieChartt.get(Month.AUGUST, result.getStatsByMonth(Month.AUGUST)));
+        Sep.setOnAction(event -> PieChartt.get(Month.SEPTEMBER, result.getStatsByMonth(Month.SEPTEMBER)));
+        Oct.setOnAction(event -> PieChartt.get(Month.OCTOBER, result.getStatsByMonth(Month.OCTOBER)));
+        Nov.setOnAction(event -> PieChartt.get(Month.NOVEMBER, result.getStatsByMonth(Month.NOVEMBER)));
+        Dec.setOnAction(event -> PieChartt.get(Month.DECEMBER, result.getStatsByMonth(Month.DECEMBER)));
 
         log.info("Main scene successfully initialize.");
     }
-
-
 }

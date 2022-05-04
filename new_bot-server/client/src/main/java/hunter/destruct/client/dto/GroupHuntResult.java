@@ -1,10 +1,11 @@
 package hunter.destruct.client.dto;
 
-import hunter.destruct.client.constansts.Month;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
 
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ public class GroupHuntResult {
     private int[] destructPosts;
     private int postCount;
     private List<String> destructComments;
-    private Map<Month, Stats> dataMap;
+    private Map<LocalDate, Stats> dataMap;
 
     // TODO: 24.04.2022 сделать Singltone
     //  (Lazy Initialization)
@@ -40,7 +41,14 @@ public class GroupHuntResult {
                 .build();
         }
         return emptyResult;
+    }
 
+    public Stats getStatsByMonth(Month month) {
+        return dataMap.entrySet().stream()
+                .filter(entry -> entry.getKey().getMonth().equals(month))
+                .map(Map.Entry::getValue)
+                .findFirst()
+                .orElse(new Stats(0,0,0,0,0));
     }
 
     @Builder
@@ -53,7 +61,6 @@ public class GroupHuntResult {
         private int messagesAboutTerrorism;
         private int messagesAboutSeparatism;
         private int messagesAboutDrugs;
-
     }
 
 }

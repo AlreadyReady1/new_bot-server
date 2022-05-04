@@ -1,7 +1,6 @@
 package hunter.destruct.client.controller.diagrams;
 
 import hunter.destruct.client.constansts.DestructClassName;
-import hunter.destruct.client.constansts.Month;
 import hunter.destruct.client.dto.GroupHuntResult;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +13,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
 
+import java.time.Month;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 public class PieChartt {
 
     public static void get(Month month, GroupHuntResult.Stats stats) {
@@ -24,7 +27,7 @@ public class PieChartt {
         ObservableList<javafx.scene.chart.PieChart.Data> valueList = dataFrom(stats);
 
         javafx.scene.chart.PieChart pieChart = new javafx.scene.chart.PieChart(valueList);
-        pieChart.setTitle("Статистика за " + month.getRussianName());
+        pieChart.setTitle("Статистика за " + month.getDisplayName(TextStyle.FULL, Locale.getDefault()));
         pieChart.setData(valueList);
 
         final Label caption = new Label("");
