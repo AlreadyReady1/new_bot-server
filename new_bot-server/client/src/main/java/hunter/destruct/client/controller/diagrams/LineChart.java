@@ -37,6 +37,8 @@ public class LineChart {
                     allData.getData().add(new XYChart.Data<>(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()), dataMap.get(date).getAllComments()));
                 });
 
+
+
         lineChart.getData().add(destructData);
         lineChart.getData().add(allData);
         lineChart.setTitle("Годовая динамика сообщений");
