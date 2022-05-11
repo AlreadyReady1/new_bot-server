@@ -12,8 +12,10 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LineChart {
 
@@ -33,9 +35,30 @@ public class LineChart {
         dataMap.keySet().stream()
                 .sorted(dateComparator())
                 .forEach(date -> {
-                    destructData.getData().add(new XYChart.Data<>(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()), dataMap.get(date).getDestructComments()));
-                    allData.getData().add(new XYChart.Data<>(date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()), dataMap.get(date).getAllComments()));
+                    destructData.getData().add(
+                            new XYChart.Data<>(
+                                    date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()),
+                                    dataMap.containsKey(date.minusMonths(1)) ? dataMap.get(date).getDestructComments() - dataMap.get(date.minusMonths(1)).getDestructComments() : 0
+                            )
+                    );
+                    allData.getData().add(
+                            new XYChart.Data<>(
+                                    date.getMonth().getDisplayName(TextStyle.FULL_STANDALONE, Locale.getDefault()),
+                                    dataMap.containsKey(date.minusMonths(1)) ? dataMap.get(date).getAllComments() - dataMap.get(date.minusMonths(1)).getAllComments() : 0
+                            )
+                    );
                 });
+
+//        var destructDataList = dataMap.keySet().stream()
+//                .sorted(dateComparator())
+//                .map(date -> dataMap.get(date).getDestructComments())
+//                .toList();
+
+//        for (int i = 0; i < destructDataList.size(); i++) {
+//            if (i == 0)
+//                continue;
+//            destructData.getData().add(new XYChart.Data<>())
+//        }
 
         lineChart.getData().add(destructData);
         lineChart.getData().add(allData);
