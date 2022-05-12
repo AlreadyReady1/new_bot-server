@@ -3,6 +3,7 @@ package hunter.destruct.client;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -15,7 +16,7 @@ public class Launcher extends Application {
 
     private static Stage primaryStage;
     private static BorderPane rootLayout;
-    private static final String TITLE = "Destruct Hunter";
+    private static final String TITLE = "DkSearcher";
 
     public static void main(String[] args) {
         launch(args);
@@ -27,6 +28,7 @@ public class Launcher extends Application {
         this.primaryStage.setMinWidth(600);
         this.primaryStage.setMinHeight(550);
         this.primaryStage.setTitle(TITLE);
+        this. primaryStage.getIcons().add(new Image("image.png"));
 
         initRootLayout();
         showMainScene();

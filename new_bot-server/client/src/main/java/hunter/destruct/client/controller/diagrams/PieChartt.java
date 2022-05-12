@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -48,13 +49,16 @@ public class PieChartt {
         root.getChildren().addAll(pieChart, caption);
 
         pieChart.setStartAngle(30);
-        Scene scene = new Scene(root, 900, 900);
+        Scene scene = new Scene(root, 900, 600);
         Stage primaryStage = new Stage();
-        primaryStage.setTitle("Destruct_Hunter");
+        primaryStage.setTitle("DkSearcher");
         primaryStage.setScene(scene);
-        primaryStage.setX(900);
-        primaryStage.setY(100);
+        primaryStage.setX(950);
+        primaryStage.setY(350);
         primaryStage.toFront();
+
+        primaryStage.getIcons().add(new Image("image.png"));
+
 
         primaryStage.show();
     }

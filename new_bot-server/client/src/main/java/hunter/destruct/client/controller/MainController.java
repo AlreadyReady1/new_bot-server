@@ -94,7 +94,6 @@ public class MainController {
                 BarChart.callVerticalBarChart(result.getDataMap());
                 LineChart.callLineChart(result.getDataMap());
             }
-//            BarChart.callHorizontalBarChart();
 
         });
 

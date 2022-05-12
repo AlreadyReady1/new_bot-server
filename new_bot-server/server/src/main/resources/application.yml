@@ -8,7 +8,7 @@ server:
 application:
   swagger:
     enabled: true
-    title: Destruct hunter
+    title: DkSearcher
     description: Поиск деструктивного контента
     version: 1.0.1
   bot:

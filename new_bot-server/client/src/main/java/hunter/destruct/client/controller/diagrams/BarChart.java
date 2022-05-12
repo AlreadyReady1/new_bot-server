@@ -1,18 +1,27 @@
 package hunter.destruct.client.controller.diagrams;
 
 import hunter.destruct.client.dto.GroupHuntResult;
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;
 import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class BarChart {
@@ -43,13 +52,21 @@ public class BarChart {
         barChart.getData().add(destructData);
         barChart.getData().add(allData);
 
+        //
+
+
+        //
+
         barChart.setTitle("Годовая статистика");
 
         VBox vbox = new VBox(barChart);
 
+
         Stage primaryStage2 = new Stage();
-        primaryStage2.setTitle("Destruct_Hunter");
+        primaryStage2.setTitle("DkSearcher");
         Scene scene = new Scene(vbox, 10500, 800);
+
+
 
         primaryStage2.setScene(scene);
         primaryStage2.setHeight(500);
@@ -57,6 +74,9 @@ public class BarChart {
         primaryStage2.setY(10);
         primaryStage2.setX(5);
         primaryStage2.toFront();
+
+        primaryStage2.getIcons().add(new Image("image.png"));
+
         primaryStage2.show();
     }
 
@@ -74,3 +94,102 @@ public class BarChart {
         };
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
